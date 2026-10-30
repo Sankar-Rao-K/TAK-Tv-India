@@ -1,0 +1,7 @@
+import {createFileRoute,notFound} from '@tanstack/react-router';
+import {publicNewsOptions} from '@/lib/news.functions';
+import {ListingPage,categoryName} from '@/components/news/public-site';
+import {CategoryHub} from '@/components/news/hub-public';
+import {meta,language,langs,siteOrigin,absUrl,sectionHreflangs,langAllowed} from '@/lib/news';
+export const Route=createFileRoute('/$lang/category/$categoryId')({loader:async({context,params})=>{if(!langs.includes(language(params.lang))||!['en','hi','te'].includes(params.lang))throw notFound();const data=await context.queryClient.ensureQueryData(publicNewsOptions);if(!langAllowed(params.lang,!!data.settings?.hindi_enabled))throw notFound();if(!data.categories.some(c=>c.id===params.categoryId))throw notFound();return data;},head:({loaderData,params})=>{const o=siteOrigin(loaderData?.settings);return meta(categoryName(loaderData?.categories.find(c=>c.id===params.categoryId),language(params.lang)),'Latest category news from TAK TV India.',false,{canonical:o?absUrl(o,`/${params.lang}/category/${params.categoryId}`):undefined,alternates:sectionHreflangs(o,!!loaderData?.settings?.hindi_enabled,l=>`/${l}/category/${params.categoryId}`)});},component:Page});
+function Page(){const p=Route.useParams();return <ListingPage lang={language(p.lang)} categoryId={p.categoryId} extra={<CategoryHub lang={language(p.lang)} categoryId={p.categoryId}/>}/>;}

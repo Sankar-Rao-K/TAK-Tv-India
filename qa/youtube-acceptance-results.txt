@@ -1,0 +1,37 @@
+PASS 1. normal link → ID tAKtvDemo01, thumbnail preview tAKtvDemo01/hqdefault.jpg
+PASS 1. normal link → title auto-filled into the English field: "Demo: How farm income is measured"
+PASS 1. normal link → Short box not ticked
+     (with YOUTUBE_API_KEY) description filled: "DEMO video description used fo" | length shown: true
+PASS 3. before adding a source the form shows "Needs details"
+PASS 1. youtu.be link → ID tAKtvDemo02, thumbnail preview tAKtvDemo02/maxresdefault.jpg
+PASS 1. youtu.be link → title auto-filled into the English field: "Demo: Second sample video"
+PASS 1. youtu.be link → Short box not ticked
+PASS 1. Shorts link → ID tAKtvShrt01, thumbnail preview tAKtvShrt01/oardefault.jpg
+PASS 1. Shorts link → title auto-filled into the Telugu field: "డెమో: రైతు ఆదాయం ఒక్క నిమిషంలో"
+PASS 1. Shorts link → Short box ticked
+PASS 2. same video pasted again → "This video is already on the website."
+PASS 2. Save is disabled for the duplicate
+PASS 2. "Open the existing entry" opens that video for editing
+PASS 2. garbage → clear error
+PASS 1/2. draft without category/sources shows the "Needs details" badge
+PASS 6. private/removed link → warning in the form
+     health check toast: Checked 6 live video(s): 2 fine, 4 need attention.
+PASS 6. health check flags it: "Video unavailable on YouTube" in the admin list
+PASS 6. healthy video is not flagged
+     admin page errors: none
+PASS 3. public card shows the YouTube thumbnail (hqdefault.jpg)
+PASS 4. maxresdefault was the grey 120×90 placeholder → fell back to hqdefault (natural width 480)
+PASS    draft video is not public
+PASS 3. clicking the card opens the video page with the player running (https://www.youtube-nocookie.com/embed/tAKtvDemo01)
+PASS 3. "Watch on YouTube" link is shown
+PASS 7. VideoObject has duration PT8M12S, uploadDate 2026-10-28T09:30:00+00:00, YouTube thumbnailUrl
+PASS 7. og:image is the YouTube thumbnail
+PASS 5. Shorts filter shows only the Short (1 card)
+PASS 5. Short card is vertical with the vertical YouTube frame
+PASS 5. Short plays in a vertical 9:16 player (360×640)
+PASS 5. home page shows a Shorts row
+PASS 3. home "Latest Videos": click opens the lightbox player
+PASS 3. Esc closes the lightbox and focus returns to the card
+PASS 6. unavailable video page shows the thumbnail + "Watch on YouTube" instead of a broken player
+     public page errors: none
+PASS 3. no file was added to storage (objects before 5, after 5)

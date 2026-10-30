@@ -1,0 +1,3 @@
+import { createFileRoute, redirect, Outlet } from '@tanstack/react-router';
+import { supabase } from '@/integrations/supabase/client';
+export const Route=createFileRoute('/_authenticated')({ssr:false,beforeLoad:async()=>{const {data:{user}}=await supabase.auth.getUser();if(!user)throw redirect({to:'/auth'});const last=Number(sessionStorage.getItem('tak-newsroom-last')||Date.now());if(Date.now()-last>4*60*60*1000){await supabase.auth.signOut();sessionStorage.removeItem('tak-newsroom-last');throw redirect({to:'/auth'});}sessionStorage.setItem('tak-newsroom-last',String(Date.now()));},component:Outlet});

@@ -1,0 +1,9 @@
+import {supabase} from '@/integrations/supabase/client';
+export async function uploadPhoto(file:File,userId:string,alt:string,credit:string){
+ if(!['image/jpeg','image/png','image/webp'].includes(file.type))throw new Error('Choose a JPG, PNG or WebP photo.');if(file.size>12*1024*1024)throw new Error('Photos must be 12 MB or smaller.');
+ const bitmap=await createImageBitmap(file);const key=`${userId}/${crypto.randomUUID()}`;
+ async function resize(max:number){const ratio=Math.min(1,max/bitmap.width);const canvas=document.createElement('canvas');canvas.width=Math.round(bitmap.width*ratio);canvas.height=Math.round(bitmap.height*ratio);const ctx=canvas.getContext('2d');if(!ctx)throw new Error('Photo could not be resized.');ctx.drawImage(bitmap,0,0,canvas.width,canvas.height);const blob=await new Promise<Blob>((resolve,reject)=>canvas.toBlob(b=>b?resolve(b):reject(new Error('Photo could not be prepared.')),'image/webp',.86));return {blob,width:canvas.width,height:canvas.height};}
+ const big=await resize(1600);const thumb=await resize(640);const path=`${key}.webp`,thumbPath=`${key}-640.webp`;
+ const a=await supabase.storage.from('news-media').upload(path,big.blob,{contentType:'image/webp'});if(a.error)throw new Error('Photo upload failed. Please try again.');const b=await supabase.storage.from('news-media').upload(thumbPath,thumb.blob,{contentType:'image/webp'});if(b.error)throw new Error('Thumbnail upload failed. Please try again.');
+ const m=await supabase.from('media').insert({path,thumb_path:thumbPath,alt,credit,original_name:file.name,width:big.width,height:big.height,size:big.blob.size,uploaded_by:userId}).select().single();if(m.error)throw new Error('Photo details could not be saved.');const url=await supabase.storage.from('news-media').createSignedUrl(path,3600);return {...m.data,url:url.data?.signedUrl||''};
+}

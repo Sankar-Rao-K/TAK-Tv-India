@@ -1,0 +1,109 @@
+PASS  reporter   Reporter can save own draft story                               expected=1  got=1
+PASS  reporter   Reporter cannot publish a story                                 expected=error  got=ERROR: CONTEXT:  PL/pgSQL function validate_news_article() line 3 at RAISE
+PASS  reporter   Reporter cannot delete a story                                  expected=0  got=0
+PASS  reporter   Reporter cannot publish a video                                 expected=error  got=ERROR: CONTEXT:  PL/pgSQL function validate_video() line 4 at RAISE
+PASS  reporter   Reporter cannot delete a video                                  expected=0  got=0
+PASS  reporter   Reporter cannot publish a post                                  expected=error  got=ERROR: CONTEXT:  PL/pgSQL function validate_post() line 4 at RAISE
+PASS  reporter   Reporter cannot delete a post                                   expected=0  got=0
+PASS  reporter   Reporter cannot publish a data card                             expected=error  got=ERROR: CONTEXT:  PL/pgSQL function validate_data_card() line 4 at RAISE
+PASS  analyst    Cannot publish a video                                          expected=error  got=ERROR: CONTEXT:  PL/pgSQL function validate_video() line 4 at RAISE
+PASS  analyst    Can edit a video draft                                          expected=1  got=1
+PASS  script     Cannot publish a video                                          expected=error  got=ERROR: CONTEXT:  PL/pgSQL function validate_video() line 4 at RAISE
+PASS  script     Can edit a video draft                                          expected=1  got=1
+PASS  video      Cannot publish a video                                          expected=error  got=ERROR: CONTEXT:  PL/pgSQL function validate_video() line 4 at RAISE
+PASS  video      Can edit a video draft                                          expected=1  got=1
+PASS  social     Cannot publish a video                                          expected=error  got=ERROR: CONTEXT:  PL/pgSQL function validate_video() line 4 at RAISE
+PASS  social     Can edit a video draft                                          expected=1  got=1
+PASS  webadmin   Cannot publish a video                                          expected=error  got=ERROR: CONTEXT:  PL/pgSQL function validate_video() line 4 at RAISE
+PASS  webadmin   Can edit a video draft                                          expected=1  got=1
+PASS  moderator  Cannot publish a video                                          expected=error  got=ERROR: CONTEXT:  PL/pgSQL function validate_video() line 4 at RAISE
+PASS  moderator  Can edit a video draft                                          expected=1  got=1
+PASS  eic        Can publish a video                                             expected=1  got=1
+PASS  eic        Can delete a video                                              expected=1  got=1
+PASS  eic        Can publish a story                                             expected=1  got=1
+PASS  editor     Can publish a video                                             expected=1  got=1
+PASS  editor     Can delete a video                                              expected=1  got=1
+PASS  editor     Can publish a story                                             expected=1  got=1
+PASS  admin      Can publish a video                                             expected=1  got=1
+PASS  admin      Can delete a video                                              expected=1  got=1
+PASS  admin      Can publish a story                                             expected=1  got=1
+PASS  eic        Data card needs source + year + verified date                   expected=error  got=ERROR: CONTEXT:  PL/pgSQL function validate_data_card() line 7 at RAISE
+PASS  eic        Editor-in-Chief can publish a sourced data card                 expected=1  got=1
+PASS  admin      Sees citizen contact details                                    expected=1  got=1
+PASS  admin      Sees evidence file list                                         expected=1  got=1
+PASS  admin      Can open evidence in private bucket                             expected=1  got=1
+PASS  eic        Sees citizen contact details                                    expected=1  got=1
+PASS  eic        Sees evidence file list                                         expected=1  got=1
+PASS  eic        Can open evidence in private bucket                             expected=1  got=1
+PASS  moderator  Sees citizen contact details                                    expected=1  got=1
+PASS  moderator  Sees evidence file list                                         expected=1  got=1
+PASS  moderator  Can open evidence in private bucket                             expected=1  got=1
+PASS  reporter   Cannot see citizen contact details                              expected=0  got=0
+PASS  reporter   Cannot see evidence file list                                   expected=0  got=0
+PASS  reporter   Cannot open evidence in private bucket                          expected=0  got=0
+PASS  analyst    Cannot see citizen contact details                              expected=0  got=0
+PASS  analyst    Cannot see evidence file list                                   expected=0  got=0
+PASS  analyst    Cannot open evidence in private bucket                          expected=0  got=0
+PASS  script     Cannot see citizen contact details                              expected=0  got=0
+PASS  script     Cannot see evidence file list                                   expected=0  got=0
+PASS  script     Cannot open evidence in private bucket                          expected=0  got=0
+PASS  video      Cannot see citizen contact details                              expected=0  got=0
+PASS  video      Cannot see evidence file list                                   expected=0  got=0
+PASS  video      Cannot open evidence in private bucket                          expected=0  got=0
+PASS  social     Cannot see citizen contact details                              expected=0  got=0
+PASS  social     Cannot see evidence file list                                   expected=0  got=0
+PASS  social     Cannot open evidence in private bucket                          expected=0  got=0
+PASS  webadmin   Cannot see citizen contact details                              expected=0  got=0
+PASS  webadmin   Cannot see evidence file list                                   expected=0  got=0
+PASS  webadmin   Cannot open evidence in private bucket                          expected=0  got=0
+PASS  editor     Cannot see citizen contact details                              expected=0  got=0
+PASS  editor     Cannot see evidence file list                                   expected=0  got=0
+PASS  editor     Cannot open evidence in private bucket                          expected=0  got=0
+PASS  outsider   Cannot see citizen contact details                              expected=0  got=0
+PASS  outsider   Cannot see evidence file list                                   expected=0  got=0
+PASS  outsider   Cannot open evidence in private bucket                          expected=0  got=0
+PASS  reporter   Newsroom member sees the issue (no contact)                     expected=1  got=1
+PASS  outsider   Signed-in non-member sees no issues                             expected=0  got=0
+PASS  reporter   Reporter cannot add contact details                             expected=error  got=ERROR: ERROR:  new row violates row-level security policy for table "query_contacts"
+PASS  anon       Anon sees only live stories (published + due schedule)          expected=2  got=2
+PASS  anon       Anon cannot read internal story columns                         expected=error  got=ERROR: ERROR:  permission denied for table articles
+PASS  anon       Anon sees only live videos (published + due schedule)           expected=2  got=2
+PASS  anon       Anon cannot see future scheduled video                          expected=0  got=0
+PASS  anon       Anon sees only live posts                                       expected=2  got=2
+PASS  anon       Anon cannot read video created_by                               expected=error  got=ERROR: ERROR:  permission denied for table videos
+PASS  anon       Anon cannot read data card internal notes                       expected=error  got=ERROR: ERROR:  permission denied for table data_cards
+PASS  anon       Anon cannot read source reliability notes                       expected=error  got=ERROR: ERROR:  permission denied for table sources
+PASS  anon       Anon cannot read planner_items                                  expected=none  got=0
+PASS  anon       Anon cannot read planner_comments                               expected=none  got=0
+PASS  anon       Anon cannot read tasks                                          expected=none  got=0
+PASS  anon       Anon cannot read queries                                        expected=none  got=0
+PASS  anon       Anon cannot read query_contacts                                 expected=none  got=0
+PASS  anon       Anon cannot read query_files                                    expected=none  got=0
+PASS  anon       Anon cannot read query_notes                                    expected=none  got=0
+PASS  anon       Anon cannot read query_events                                   expected=none  got=0
+PASS  anon       Anon cannot read audit_log                                      expected=none  got=0
+PASS  anon       Anon cannot open citizen evidence                               expected=0  got=0
+PASS  anon       Anon cannot insert an issue directly                            expected=error  got=ERROR: ERROR:  new row violates row-level security policy for table "queries"
+PASS  anon       Anon cannot see sources attached to a draft video               expected=0  got=0
+PASS  anon       Anon sees sources attached to a live video                      expected=1  got=1
+PASS  anon       Anon can read new public video facts (Short, length)            expected=ok  got=5
+PASS  anon       Anon cannot read when a video was health-checked                expected=error  got=ERROR: ERROR:  permission denied for table videos
+PASS  reporter   Reporter cannot publish a video by changing the YouTube status  expected=error  got=ERROR: CONTEXT:  PL/pgSQL function validate_video() line 4 at RAISE
+PASS  admin      Admin reads the activity log                                    expected=1  got=1
+PASS  eic        Cannot read the activity log                                    expected=0  got=0
+PASS  eic        Cannot change site settings                                     expected=0  got=0
+PASS  editor     Cannot read the activity log                                    expected=0  got=0
+PASS  editor     Cannot change site settings                                     expected=0  got=0
+PASS  reporter   Cannot read the activity log                                    expected=0  got=0
+PASS  reporter   Cannot change site settings                                     expected=0  got=0
+PASS  moderator  Cannot read the activity log                                    expected=0  got=0
+PASS  moderator  Cannot change site settings                                     expected=0  got=0
+PASS  webadmin   Cannot read the activity log                                    expected=0  got=0
+PASS  webadmin   Cannot change site settings                                     expected=0  got=0
+PASS  admin      Admin can change site settings                                  expected=1  got=1
+PASS  reporter   Reporter cannot change own role                                 expected=none  got=0
+PASS  reporter   Reporter cannot grant a role                                    expected=error  got=ERROR: ERROR:  new row violates row-level security policy for table "user_roles"
+PASS  anon       Anon cannot read team profiles                                  expected=none  got=0
+PASS  anon       Anon cannot read roles                                          expected=none  got=0
+
+107/107 checks passed

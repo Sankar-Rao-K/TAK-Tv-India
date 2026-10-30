@@ -1,0 +1,14 @@
+import {useEditor,EditorContent} from '@tiptap/react';
+import StarterKit from '@tiptap/starter-kit';
+import Image from '@tiptap/extension-image';
+import {Table,TableRow,TableCell,TableHeader} from '@tiptap/extension-table';
+import {Button} from '@/components/ui/button';
+import {Bold,Italic,Undo2,Redo2,List,ListOrdered,Quote,Link2,Unlink,ImagePlus,Table2} from 'lucide-react';
+import {useEffect} from 'react';
+export function StoryEditor({value,onChange,onPhoto}:{value:string;onChange:(s:string)=>void;onPhoto?:()=>void}){
+ const editor=useEditor({immediatelyRender:false,extensions:[StarterKit.configure({link:{openOnClick:false},heading:{levels:[2,3]}}),Image.extend({addAttributes(){return {...this.parent?.(),'data-path':{default:null}};}}),Table.configure({resizable:false}),TableRow,TableCell,TableHeader],content:value,onUpdate:({editor})=>onChange(editor.getHTML())});
+ useEffect(()=>{if(editor&&editor.getHTML()!==value&&!editor.isFocused)editor.commands.setContent(value,{emitUpdate:false});},[value,editor]);
+ if(!editor)return <div className="h-96 bg-muted animate-pulse"/>;
+ const tools=[{title:'Undo',icon:Undo2,action:()=>editor.chain().focus().undo().run()},{title:'Redo',icon:Redo2,action:()=>editor.chain().focus().redo().run()},{title:'Bold',icon:Bold,action:()=>editor.chain().focus().toggleBold().run()},{title:'Italic',icon:Italic,action:()=>editor.chain().focus().toggleItalic().run()},{title:'Bullet list',icon:List,action:()=>editor.chain().focus().toggleBulletList().run()},{title:'Numbered list',icon:ListOrdered,action:()=>editor.chain().focus().toggleOrderedList().run()},{title:'Quote',icon:Quote,action:()=>editor.chain().focus().toggleBlockquote().run()},{title:'Link',icon:Link2,action:()=>{const u=window.prompt('Link address');if(u)editor.chain().focus().setLink({href:u}).run();}},{title:'Remove link',icon:Unlink,action:()=>editor.chain().focus().unsetLink().run()},{title:'Photo',icon:ImagePlus,action:()=>onPhoto?.()},{title:'Table',icon:Table2,action:()=>editor.chain().focus().insertTable({rows:3,cols:3,withHeaderRow:true}).run()}];
+ return <div className="border border-input rounded-md overflow-hidden bg-card"><div className="flex flex-wrap gap-1 p-2 border-b border-border bg-background"><select aria-label="Paragraph style" className="bg-transparent text-xs border border-input rounded px-2" onChange={e=>{if(e.target.value==='p')editor.chain().focus().setParagraph().run();else editor.chain().focus().toggleHeading({level:e.target.value==='2'?2:3}).run();}}><option value="p">Paragraph</option><option value="2">Heading 2</option><option value="3">Heading 3</option></select>{tools.map(t=><Button key={t.title} type="button" variant="ghost" size="icon" title={t.title} aria-label={t.title} onClick={t.action}><t.icon/></Button>)}</div><EditorContent editor={editor} className="story-body"/></div>;
+}

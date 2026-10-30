@@ -1,0 +1,7 @@
+import {createFileRoute} from '@tanstack/react-router';
+import {useSuspenseQuery} from '@tanstack/react-query';
+import {newsroomOptions,publicNewsOptions} from '@/lib/news.functions';
+import {StoryPage} from '@/components/news/public-site';
+import {meta,language} from '@/lib/news';
+export const Route=createFileRoute('/_authenticated/preview/$id')({loader:async({context})=>{await context.queryClient.ensureQueryData(publicNewsOptions);return context.queryClient.ensureQueryData(newsroomOptions);},head:()=>meta('Story preview','Private TAK TV India newsroom preview.',true),component:Preview});
+function Preview(){const {data}=useSuspenseQuery(newsroomOptions);const {id}=Route.useParams();const a=data.articles.find(a=>a.id===id);if(!a)return <div className="p-12">Story not found or not accessible.</div>;const pending=a.pending_edits as Partial<typeof a>|null;return <><div className="bg-accent text-accent-foreground text-center text-xs p-2">PRIVATE PREVIEW · NOT PUBLISHED</div><StoryPage lang={language(a.lang)} slug={a.slug} previewArticle={{...a,...pending,body_html:String(pending?.body_html??a.body_html).replace(/<img\b[^>]*>/g,tag=>{const p=tag.match(/data-path="([^"]+)"/)?.[1];const u=p?data.media.find(m=>m.path===p)?.url:'';return u?tag.replace(/src="[^"]*"/,`src="${u.replace(/"/g,'&quot;')}"`):tag;}),cover_url:data.media.find(m=>m.path===(pending?.cover_path||a.cover_path))?.url||''}}/></>;}

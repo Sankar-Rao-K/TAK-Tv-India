@@ -1,0 +1,62 @@
+{
+  "source": "code-archive",
+  "capabilities": [
+    {
+      "capability": "public website and branding",
+      "source": "PHP templates and uploaded logo",
+      "outcome": "recreate",
+      "status": "implemented",
+      "next_action": "canonical tags, full breadcrumb/video metadata and native-speaker review remain"
+    },
+    {
+      "capability": "schema and records",
+      "source": "file-based JSON store; uninitialized archive",
+      "outcome": "migrate to Cloud",
+      "status": "verified",
+      "next_action": "archive has no existing records; owner supplies real news"
+    },
+    {
+      "capability": "auth identities and authorization",
+      "source": "PHP email/password and admin/editor/reporter roles",
+      "outcome": "migrate to Cloud",
+      "status": "implemented",
+      "next_action": "owner creates first account; invitation/recovery email delivery remains unverified"
+    },
+    {
+      "capability": "uploaded file bytes",
+      "source": "branding only; no news photos",
+      "outcome": "preserve logo; Cloud for newsroom uploads",
+      "status": "verified",
+      "next_action": "bulk uploads and library caption editing are not yet included"
+    },
+    {
+      "capability": "public endpoints and schedules",
+      "source": "RSS, sitemaps, scheduled publication",
+      "outcome": "preserve",
+      "status": "verified",
+      "next_action": null
+    },
+    {
+      "capability": "external providers, callbacks, webhooks, secrets",
+      "source": "none detected",
+      "outcome": "not applicable",
+      "status": "verified",
+      "next_action": null
+    },
+    {
+      "capability": "cutover and verification",
+      "source": "unpublished reference source",
+      "outcome": "verify preview; publishing only on request",
+      "status": "partially_verified",
+      "next_action": "owner account, real email flows and full multi-role matrix remain; no publish requested"
+    }
+  ],
+  "remaining_reference_features": [
+    "searchable internal-story link picker",
+    "photo drag and drop and bulk upload",
+    "post-upload caption/credit editing",
+    "canonical and full breadcrumb/video metadata",
+    "default social cover",
+    "team/category/settings/page end-to-end checks"
+  ]
+}
