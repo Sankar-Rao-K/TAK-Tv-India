@@ -12,4 +12,4 @@ export const Route=createFileRoute('/$lang/news/$slug')({
   const h=meta(a.seo_title||a.title,a.seo_description||a.summary||'TAK TV India news story.',false,{canonical:url,image,type:'article',ld});
   return {...h,meta:[...h.meta,...(a.published_at?[{property:'article:published_time',content:a.published_at}]:[]),{property:'article:modified_time',content:a.updated_at}]};},
  component:Page});
-function Page(){const p=Route.useParams();return <StoryPage lang={language(p.lang)} slug={p.slug}/>;}
+function Page(){const p=Route.useParams();const d=Route.useLoaderData();return <StoryPage key={p.slug} lang={language(p.lang)} slug={p.slug} initial={d.story}/>;}

@@ -13,5 +13,5 @@ export const Route = createFileRoute('/$lang/blog_/$slug')({
     const alternates = p.title_te.trim() && p.title_en.trim() && p.body_te.replace(/<[^>]+>/g, '').trim() && p.body_en.replace(/<[^>]+>/g, '').trim() ? hreflangs(o, { en: `/en/blog/${p.slug}`, te: `/te/blog/${p.slug}` }) : [];
     return meta(title, desc, false, { canonical: url || undefined, image: img, type: 'article', alternates, ld: url ? [ldBlog({ url, headline: title, description: desc, image: img, published: p.published_at || p.created_at, modified: p.updated_at, siteName: loaderData?.settings?.site_name || 'TAK TV India', logo: absUrl(o, '/apple-touch-icon.png') }), ldBreadcrumb([{ name: 'Home', url: absUrl(o, '/') }, { name: ht('blogs', lang), url: absUrl(o, `/${lang}/blog`) }, { name: title, url }])] : [] });
   },
-  component: () => { const p = Route.useParams(); return <PostPage lang={p.lang as Lang} slug={p.slug} />; },
+  component: () => { const p = Route.useParams(); const d = Route.useLoaderData(); return <PostPage key={p.slug} lang={p.lang as Lang} slug={p.slug} initial={d.post} />; },
 });

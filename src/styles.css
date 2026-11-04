@@ -144,26 +144,45 @@
 }
 
 :root {
+ /* TAK TV palette, taken from the logo: orange #FE7201, deep orange, logo red, warm ink. */
  --radius: .75rem;
- --background: oklch(.976 .004 260); --foreground: oklch(.2 .012 260);
+ --background: oklch(.971 .003 67.8); --foreground: oklch(.223 .010 53);
  --card: oklch(1 0 0); --card-foreground: var(--foreground);
- --primary: oklch(.703 .194 49); --primary-foreground: oklch(1 0 0);
- --secondary: oklch(.2 .012 260); --secondary-foreground: oklch(1 0 0);
- --muted: oklch(.945 .006 260); --muted-foreground: oklch(.49 .02 260);
- --accent: oklch(.957 .029 62); --accent-foreground: oklch(.52 .16 47);
- --border: oklch(.921 .008 260); --input: var(--border); --ring: var(--primary);
- --breaking: oklch(.56 .213 26); --breaking-foreground: oklch(1 0 0);
- --success: oklch(.49 .12 151); --news-shadow: 0 2px 6px oklch(.2 .012 260 / .06);
+ --popover: oklch(1 0 0); --popover-foreground: var(--foreground);
+ --primary: oklch(.710 .194 47.6); --primary-foreground: oklch(1 0 0);
+ --primary-dark: oklch(.633 .184 44);
+ --secondary: oklch(.236 .030 47.4); --secondary-foreground: oklch(1 0 0);
+ --muted: oklch(.955 .006 67); --muted-foreground: oklch(.49 .02 55);
+ --accent: oklch(.966 .021 60.8); --accent-foreground: oklch(.52 .16 44);
+ --accent-border: oklch(.907 .051 59.5);
+ --border: oklch(.925 .008 67); --input: var(--border); --ring: var(--primary);
+ --breaking: oklch(.567 .212 28.8); --breaking-foreground: oklch(1 0 0);
+ --breaking-to: oklch(.638 .208 36.6);
+ --success: oklch(.49 .12 151); --news-shadow: 0 2px 10px oklch(.3 .05 45 / .07);
 }
-@theme inline { --color-breaking:var(--breaking); --color-breaking-foreground:var(--breaking-foreground); --color-success:var(--success); --font-sans:'Poppins','Noto Sans Devanagari','Noto Sans Telugu',sans-serif; }
+@theme inline { --color-breaking:var(--breaking); --color-breaking-foreground:var(--breaking-foreground); --color-success:var(--success); --color-primary-dark:var(--primary-dark); --color-accent-border:var(--accent-border); --font-sans:'Poppins','Noto Sans Devanagari','Noto Sans Telugu',sans-serif; --font-serif:'Noto Serif','Noto Serif Telugu','Noto Sans Telugu','Noto Sans Devanagari',Georgia,serif; }
 body { font-family:var(--font-sans); line-height:1.65; margin:0; }
 * { letter-spacing:0; }
 a,button,input,textarea,select { -webkit-tap-highlight-color:transparent; }
 button,input,textarea,select { font:inherit; }
-.news-wrap { width:min(1200px,100%); margin-inline:auto; padding-inline:24px; }
-.news-header { background:var(--primary); color:var(--primary-foreground); position:sticky; top:0; z-index:40; box-shadow:var(--news-shadow); }
+.news-wrap { width:min(1320px,100%); margin-inline:auto; padding-inline:24px; }
+.news-header { background:var(--primary); color:var(--primary-foreground); position:sticky; top:0; z-index:40; box-shadow:0 2px 12px oklch(.45 .15 40 / .25); }
+.news-header .divider { width:1px; align-self:stretch; margin-block:14px; background:color-mix(in oklch,var(--primary-foreground) 45%,transparent); }
+.top-nav > a, .top-nav > div > button { display:flex; align-items:center; gap:8px; padding:8px 10px; font-size:15px; font-weight:600; border-bottom:3px solid transparent; white-space:nowrap; }
+.top-nav > a.active { border-bottom-color:var(--primary-foreground); }
+.top-nav > a:hover, .top-nav > div > button:hover { background:color-mix(in oklch,var(--primary-foreground) 14%,transparent); border-radius:8px; }
+.header-pill { background:color-mix(in oklch,var(--primary-foreground) 88%,var(--primary)); color:var(--foreground); border-radius:999px; }
+.breaking-bar { background:linear-gradient(90deg,var(--breaking),var(--breaking-to) 55%,var(--primary)); color:var(--breaking-foreground); }
+.ticker-track { scrollbar-width:none; } .ticker-track::-webkit-scrollbar { display:none; }
+.cat-side a { display:flex; align-items:center; gap:12px; padding:10px 12px; border-radius:10px; font-size:14px; font-weight:500; }
+.cat-side a:hover { background:var(--accent); }
+.cat-side a.active { background:var(--primary); color:var(--primary-foreground); font-weight:700; box-shadow:0 4px 12px oklch(.6 .18 45 / .3); }
+.cat-side a.active svg { color:var(--primary-foreground) !important; }
+.headline-serif { font-family:var(--font-serif); font-weight:700; letter-spacing:-.01em; }
+.rule-orange { height:2px; background:linear-gradient(90deg,var(--primary),color-mix(in oklch,var(--primary) 30%,transparent)); border:0; }
+.quote-card { background:var(--accent); border:1px solid var(--accent-border); border-radius:12px; }
 .news-brand { display:flex; align-items:center; gap:14px; }
-.news-brand img { width:72px; height:72px; border-radius:12px; }
+.news-brand img { width:84px; height:84px; border-radius:10px; }
 .news-brand strong { font-size:26px; font-weight:800; line-height:1.15; display:block; }
 .news-brand small { font-size:12px; display:block; margin-top:5px; }
 .news-nav { background:var(--secondary); color:var(--secondary-foreground); }
@@ -186,5 +205,5 @@ button,input,textarea,select { font:inherit; }
 .admin-panel { background:var(--card);border:1px solid var(--border);border-radius:8px;padding:20px; }
 .tiptap { min-height:350px; padding:20px; outline:none; }
 .tiptap p.is-editor-empty:first-child::before { content:attr(data-placeholder);color:var(--muted-foreground); }
-@media(max-width:720px) { .news-wrap{padding-inline:16px}.news-brand img{width:58px;height:58px}.news-brand strong{font-size:21px}.section-heading{font-size:21px}.news-nav.mobile-closed{display:none}.news-nav nav{flex-direction:column}.news-nav a{padding:10px 16px}.story-body{font-size:17px} }
+@media(max-width:720px) { .news-wrap{padding-inline:16px}.news-brand img{width:56px;height:56px}.news-brand strong{font-size:21px}.section-heading{font-size:21px}.news-nav.mobile-closed{display:none}.news-nav nav{flex-direction:column}.news-nav a{padding:10px 16px}.story-body{font-size:17px} }
 @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important;animation:none!important}}

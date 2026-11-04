@@ -54,7 +54,7 @@ Both routes need `Authorization: Bearer <LOVABLE_CRON_SECRET>` and use `POST`:
 Ask Lovable to “schedule an hourly POST to /api/cron/youtube-import with the cron secret” (and the same for notify-moderators).
 
 ## Development and deployment
-`npm install --legacy-peer-deps` (or `bun install`), `npx vite dev`, `npx vitest run`, `npx tsc --noEmit`, `npx vite build`. Publish through Lovable when ready. This full-stack SSR app needs a compatible server runtime; it cannot be deployed as plain static files.
+`npm install --legacy-peer-deps` (or `bun install`), `npx vite dev`, `npx vitest run`, `npx tsc --noEmit`, `npx vite build`. Publish through Lovable when ready, deploy to Vercel with `npm run build:vercel` (see `DEPLOY-VERCEL.md`), or to Hostinger’s Node.js Web Apps with `npm run build:node` (see `DEPLOY-HOSTINGER.md`). This full-stack SSR app needs a compatible server runtime; it cannot be deployed as plain static files.
 
 Environment names only (values live in Lovable Cloud secrets, never in the repo or browser): browser `VITE_SUPABASE_URL`, `VITE_SUPABASE_PUBLISHABLE_KEY`, `VITE_SUPABASE_PROJECT_ID`; server `SUPABASE_URL`, `SUPABASE_PUBLISHABLE_KEY`, `SUPABASE_SERVICE_ROLE_KEY`, `LOVABLE_CRON_SECRET`, and the optional `TURNSTILE_SITE_KEY`, `TURNSTILE_SECRET_KEY`, `RESEND_API_KEY`, `NOTIFY_FROM`, `NOTIFY_EMAILS`, `YOUTUBE_API_KEY`.
 

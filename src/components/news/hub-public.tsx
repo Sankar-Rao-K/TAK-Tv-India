@@ -108,8 +108,8 @@ export function PostsPage({ lang }: { lang: Lang }) {
   const { data } = usePublic(); const [count, setCount] = useState(12);
   return <PublicShell lang={lang}><main className="news-wrap py-8 min-h-[420px]"><h1 className="section-heading !text-3xl mb-7">{ht('blogs', lang)}</h1>{data.posts.length ? <><div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">{data.posts.slice(0, count).map((p) => <PostCard key={p.id} p={p} lang={lang} />)}</div>{count < data.posts.length && <div className="text-center mt-8"><Button onClick={() => setCount(count + 12)}>{ht('loadMore', lang)}</Button></div>}</> : <div className="news-empty"><p className="text-sm">{ht('noPosts', lang)}</p></div>}</main></PublicShell>;
 }
-export function PostPage({ lang, slug }: { lang: Lang; slug: string }) {
-  const { data } = usePublic(); const full = useQuery(publicPostOptions(slug)); const p = full.data;
+export function PostPage({ lang, slug, initial }: { lang: Lang; slug: string; initial?: Awaited<ReturnType<NonNullable<ReturnType<typeof publicPostOptions>['queryFn']>>> | undefined }) {
+  const { data } = usePublic(); const full = useQuery({ ...publicPostOptions(slug), ...(initial !== undefined ? { initialData: initial } : {}) }); const p = full.data;
   if (!p && full.isPending) return <PublicShell lang={lang}><main className="news-wrap min-h-[450px]" aria-busy="true" /></PublicShell>;
   if (!p) return <Missing lang={lang} text={lang === 'te' ? 'పోస్టు కనబడలేదు' : 'Post not found'} back={ht('blogs', lang)} to="/$lang/blog" />;
   const cat = data.categories.find((c) => c.id === p.category_id); const body = lang === 'te' ? p.body_te || p.body_en : p.body_en || p.body_te;

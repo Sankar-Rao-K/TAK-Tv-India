@@ -12,7 +12,6 @@ import {StoryEditor} from './editor';
 import {QueriesDesk} from './queries';
 import {Suspense} from 'react';
 import {uploadPhoto} from './media';
-import logo from '@/assets/tak-tv-india-logo.jpg.asset.json';
 import {toast} from 'sonner';
 import {LayoutDashboard,PenLine,Files,Clock3,CheckCheck,FileText,Send,Trash2,Image,Tags,Users,Settings,ExternalLink,LogOut,Menu,X,Plus,Search,Save,Eye,ArrowRight,Upload,CheckCircle2,Archive,ChevronDown,LockKeyhole,Inbox,Film,BookOpen,BarChart3,Library,KanbanSquare,History} from 'lucide-react';
 const tabs=[['dashboard','Dashboard',LayoutDashboard],['write','Write News',PenLine],['articles','All Articles',Files],['review','Needs Review',CheckCheck],['draft','Drafts',FileText],['scheduled','Scheduled',Clock3],['published','Published',Send],['trash','Trash / Archived',Trash2],['queries','Citizen Issues',Inbox],['videos','Videos',Film],['posts','Blogs & Posts',BookOpen],['data','Data Library',BarChart3],['sources','Source Library',Library],['planner','Content Planner',KanbanSquare],['activity','Activity Log',History],['media','Photo Library',Image],['categories','Categories',Tags],['team','Team',Users],['settings','Site Settings',Settings],['pages','Pages',FileText],['account','Account',LockKeyhole]] as const;

@@ -1,3 +1,19 @@
+# Latest pass — public site redesign (4 Nov 2026)
+
+Built from the owner's mockup. Colours are taken from the logo: orange #FE7201, dark orange #E05A00, red #D7261E, peach #FFF1E6.
+- **Orange header:** logo, Home, Live TV (the YouTube channel's `/live` page, shown only when a channel is set), Categories menu, About, Contact, More, search, weather chip, language switch, and an **Admin** button at the top right that opens `/admin`. On mobile everything is in a menu drawer.
+- **Weather chip:** shows the real Visakhapatnam temperature from Open-Meteo (free, no key, cached for 30 minutes). It is hidden when the weather can't be read. To change the city, edit `WEATHER_CITY` in `src/lib/weather.functions.ts`.
+- **News ticker:** "BREAKING NEWS:" when there is a breaking story from the last 48 hours, otherwise "LATEST NEWS:". It has ‹ › arrows.
+- **Category sidebar** (desktop): left side, with icons, a "More categories" toggle, and the current category highlighted.
+- **Story page:**
+  - Left: the video (or cover photo), plus a peach quote card. The quote card shows the first quotation in the story; an attribution is a last line starting with "—".
+  - Right: category pill and date with weekday, serif headline, summary between orange rules, and the body starting with a bold "Location:".
+  - Bottom: Back to News, Previous / n of N / Next.
+- **Bug fixed:** the story and blog pages flashed "loading" on first view (hydration mismatch). They now use the server's data straight away.
+- Checks run: `tsc` 0 errors · `vitest` 59 tests / 10 files pass · `vite build` succeeds · browser check of home, category, story, dropdown and mobile (no page errors). The weather chip was not seen live (no network here).
+
+---
+
 # Latest pass — YouTube-link-only videos + manuals (30 Oct 2026)
 
 **Built:** paste-a-link video form (watch / youtu.be / shorts / live / embed / bare ID), duplicate block with "Open the existing entry", oEmbed title + channel (no key) and optional `YOUTUBE_API_KEY` details (description, length, date, tags), Telugu/English field by script; thumbnails straight from YouTube with maxres → hq → mq fallback and grey-placeholder detection (nothing stored); click-to-play `youtube-nocookie` player loaded only after the click; home "Latest Videos" lightbox (Esc closes, focus returns); Shorts (vertical cards/player, Shorts filter, home row); "Watch on YouTube" fallback for private/removed/non-embeddable videos; "Check YouTube links" button + weekly `POST /api/cron/youtube-health`; "Needs details" badge and one-click Publish; YouTube thumbnail as a blog cover; VideoObject duration/uploadDate; og:image = YouTube thumbnail. Admin accepts no video files (only JPG/PNG/WebP photos). Citizen portal unchanged.
